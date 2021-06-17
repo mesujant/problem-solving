@@ -1,12 +1,25 @@
-#handle if no match in address
-#what better than the None
+ 
 
 def return_new_address(ward_add, old_address):
+	old_address = old_address
+	ten_to_15_address_map = {
+								'a': 10,
+								'b': 11,
+								'c': 12,
+								'd': 13,
+								'e': 14,
+								'f': 15,
+	}
+	if not old_address.isdigit():
+		old_address = ten_to_15_address_map[old_address.lower()]
+	print("new old address:", old_address)
+	input()
+	
 	address_map = {
-		"sanne1":[((1,2,,3,4,5,6),(7,8,9)), (1,2)],
+		"sanne1":[((1,2,3,4,5,6),(7,8,9)), (1,2)],
 		"sanne2":[((1),(2,3)), (1, 2)],
 		"pakhribas1":[((1,4,5,6,7,8),(2,3,9)), (3,4)],
-		"pakhribas2":[((5,6),(4)), (3,4)],
+		"pakhribas2":[((1,), (2,3), (5,6), (4,), (7,8,9),(10, 11, 12), (13,), (14, 15)), (1, 2, 3, 4, 5, 6, 7, 8)],
 		"ghorikharka":[((1,2,3,4,5,6,7,8,9)), (5)],
 		"falate":[((1,2,3,4,5,6,7,8,9)), (6)],
 		"mugha":[((1,7,8,13),(2,3,4,5,6,9)), (7,8)],
@@ -25,19 +38,22 @@ def return_new_address(ward_add, old_address):
 
 
 if __name__ == "__main__":
- 
+	import string
+	for value in string.ascii_lowercase:
+		print(return_new_address("pakhribas2", value))
+		input()
  
 	#file_name = 'addressedit.txt'
-	file_name = "/home/synced/Documents/address editing/birth(2noko).txt"
+	file_name = "/home/synced/Documents/address editing/parkhribash_3_1.txt"
 
-	#file_name = "/home/synced/Documents/address editing/test_1.txt"
+	#file_name = "/home/synced/Documents/address editing/chumang_shekhar_vae 1st.txt"
 	#file_name = '/home/synced/Documents/address editing/chungmang_data.txt'
 
 	address_map = {
 		"sanne1":[((),()), ()],
 		"sanne2":[(()), ()],
 		"pakhribas1":[((1,4,5,6,7,8),(2,3,9)), (3,4)],
-		"pakhribas2":[((5,6),(4)), (3,4)],
+		"pakhribas2":[((1), (2,3), (5,6), (4), (7,8,9),(10, 11, 12), (13), (14, 15)), (1, 2, 3, 4, 5, 6, 7, 8)],
 		"ghorikharka":[((1,2,3,4,5,6,7,8,9)), (5)],
 		"falate":[((1,2,3,4,5,6,7,8,9)), (6)],
 		"mugha":[((1,7,8,13),(2,3,4,5,6,9)), (7,8)],
@@ -63,12 +79,17 @@ if __name__ == "__main__":
 	with open(file_name, 'r') as file:
 		for line in file.readlines():
 			if len(line) > 1:
-				#print(line)
-				#input()
-				data.append(line.rstrip().split('\t'))
+				datum = line.rstrip().split('\t')
+				if len(datum[0])>0:
+					#print(type(datum))
+					#input()
+					data.append(datum)
 				#print(len(line))
 				#input()
 	
+	for datum in data:
+		print(datum)
+	input()
 
 	year_book_no = [key for key in data if len(key) == 1]
 	concat_year_book = []
@@ -77,7 +98,7 @@ if __name__ == "__main__":
 
 	#print(concat_year_book)
 
-	key_books = [book for book in concat_year_book if len(book)>=18 and book.count('-')>3]
+	key_books = [book for book in concat_year_book if len(book)>=15 and book.count('-')>3]
 	 
 	index_of_books = [data.index([book]) for book in key_books]
 
@@ -109,12 +130,16 @@ if __name__ == "__main__":
 
 
 	#view data
-	'''
+	print("original dict data:")
+	input()
+
 	for key1 in dict_data.keys():
-		print(key1, ":\n", dict_data[key1] )
+		print(key1)
+		for key2 in dict_data[key1].keys():
+			print(key2, "\n",dict_data[key1][key2])
 		print("\n")
-	'''
-		
+	
+	input()	
 
 	 
 	for key1 in dict_data.keys():
@@ -126,6 +151,7 @@ if __name__ == "__main__":
 			for datum in data:		 
 				if len(datum) > 1:
 					increment = 1
+					#print(datum[0])
 					r1, r2 = datum[0].split('-')
 					#condition to check for only one data
 					if len(r2) == 0:
@@ -136,14 +162,26 @@ if __name__ == "__main__":
 					if r1 > r2:
 						increment = -1
 					#concatenate 9 if the any date entry misses
+					
+					temp = ''
+					for value in datum[1]:
+						if value != " ":
+							temp += value
+					datum[1] = temp
+
+
 					if len(datum[1]) < (abs(r2-r1)+1):
 						while(len(datum[1]) <= (abs(r2-r1)+1)):
 							datum[1] += '9'
 
 					#for i in range(r2-r1+1):
 					for i in range(r1, r2+increment, increment):
-						new_add = return_new_address(ward, int(datum[1][(abs(r1-i))]))
-						edited_address.append([i, new_add])
+						old_add = datum[1][(abs(r1-i))]
+						if old_add != " ":
+							if old_add.isdigit():
+								old_add = int(old_add)
+							new_add = return_new_address(ward, old_add)
+							edited_address.append([i, new_add])
 						
 			dict_data[key1][key2] = edited_address
 
