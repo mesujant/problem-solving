@@ -10,13 +10,12 @@ def return_new_address(ward_add, old_address):
 								'e': 14,
 								'f': 15,
 	}
-	if not old_address.isdigit():
+	if not str(old_address).isdigit():
 		old_address = ten_to_15_address_map[old_address.lower()]
-	print("new old address:", old_address)
-	input()
+	 
 	
 	address_map = {
-		"sanne1":[((1,2,3,4,5,6),(7,8,9)), (1,2)],
+		"sanne1":[((1,2,3),(4,5,6,7,8,9)), (1,2)],
 		"sanne2":[((1),(2,3)), (1, 2)],
 		"pakhribas1":[((1,4,5,6,7,8),(2,3,9)), (3,4)],
 		"pakhribas2":[((1,), (2,3), (5,6), (4,), (7,8,9),(10, 11, 12), (13,), (14, 15)), (1, 2, 3, 4, 5, 6, 7, 8)],
@@ -38,17 +37,15 @@ def return_new_address(ward_add, old_address):
 
 
 if __name__ == "__main__":
-	import string
-	for value in string.ascii_lowercase:
-		print(return_new_address("pakhribas2", value))
-		input()
+	 
  
 	#file_name = 'addressedit.txt'
-	file_name = "/home/synced/Documents/address editing/parkhribash_3_1.txt"
+	#file_name = "/home/synced/Documents/address editing/pakhribash 3/parkhribash_3_2.txt"
 
 	#file_name = "/home/synced/Documents/address editing/chumang_shekhar_vae 1st.txt"
-	#file_name = '/home/synced/Documents/address editing/chungmang_data.txt'
-
+	#file_name = '/home/synced/Documents/address editing/2_70_data.txt'
+	#file_name = '/home/synced/Documents/address editing/2_63_marriage.txt'
+	file_name = '/home/synced/Documents/address editing/test_for_8_2054.txt'
 	address_map = {
 		"sanne1":[((),()), ()],
 		"sanne2":[(()), ()],
@@ -79,7 +76,7 @@ if __name__ == "__main__":
 	with open(file_name, 'r') as file:
 		for line in file.readlines():
 			if len(line) > 1:
-				datum = line.rstrip().split('\t')
+				datum = line.rstrip().split('–')
 				if len(datum[0])>0:
 					#print(type(datum))
 					#input()
@@ -196,5 +193,7 @@ if __name__ == "__main__":
 	
 	print("final data")
 	print(dict_data)
+	input()
+	print(dict_data.keys())
 	input()
 	 
