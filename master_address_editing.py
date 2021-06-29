@@ -45,7 +45,7 @@ if __name__ == "__main__":
 	#file_name = "/home/synced/Documents/address editing/chumang_shekhar_vae 1st.txt"
 	#file_name = '/home/synced/Documents/address editing/2_70_data.txt'
 	#file_name = '/home/synced/Documents/address editing/2_63_marriage.txt'
-	file_name = '/home/synced/Documents/address editing/test_for_8_2054.txt'
+	file_name = '/home/synced/Documents/address editing/chumang_marriage.txt'
 	address_map = {
 		"sanne1":[((),()), ()],
 		"sanne2":[(()), ()],
